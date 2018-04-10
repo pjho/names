@@ -2,11 +2,8 @@ import { h, Component } from 'preact';
 import style from './style';
 
 export default class Home extends Component {
-	render(state, props) {
 
-    console.log(props);
-
-
+  render({ data }, state) {
 		return (
 			<div class={style.home}>
 				<h1>Home</h1>

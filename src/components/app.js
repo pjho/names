@@ -12,7 +12,10 @@ if (module.hot) {
 }
 
 export default class App extends Component {
-  static state = { data: {} }
+    state = {
+      loading: true,
+      data: {}
+    }
 
     /** Gets fired when the route changes.
      *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
@@ -23,27 +26,27 @@ export default class App extends Component {
     };
 
   componentWillMount () {
-    console.log('yo momma');
-const _t = this;
     fetch("assets/data/baby-names.json")
-    .then(resp => resp.json())
-    .then(json => {
-      console.log(Object.keys(json));
-        _t.setState({ data: json })
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({ data: json, loading: false });
       })
   }
 
-	render(state) {
-    console.log(state.data);
+	render(props, { data, loading }) {
 
 		return (
 			<div id="app">
 				<Header />
-				<Router onChange={this.handleRoute}>
-					<Home path="/" data={state.data} />
+        {loading ? (
+          <p>Loading</p>
+        ): (
+          <Router onChange={this.handleRoute}>
+					<Home path="/" data={ data } thing='it' />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>
+        )}
 			</div>
 		);
 	}
