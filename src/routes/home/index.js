@@ -16,7 +16,7 @@ export default class Home extends Component {
     return (
       <div class={ style.home }>
         <input type='text' onInput={ this.handleChange } />
-        <p>{query}</p>
+        {/*<p>{query}</p>*/}
 
         { query && (
           <NameList query={ query } data={ data } />

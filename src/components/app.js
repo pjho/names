@@ -3,6 +3,8 @@ import { Router } from "preact-router";
 
 import Header from "./header";
 import Home from "../routes/home";
+import Name from "../routes/name";
+
 import Profile from "../routes/profile";
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -26,7 +28,7 @@ export default class App extends Component {
   };
 
   componentWillMount() {
-    fetch("assets/data/baby-names.json")
+    fetch("/assets/data/baby-names.json")
       .then(resp => resp.json())
       .then(json => {
         this.setState({ data: json, loading: false });
@@ -37,11 +39,12 @@ export default class App extends Component {
     return (
       <div id="app">
         <Header />
-        {loading ? (
+        { loading ? (
           <p>Loading</p>
         ) : (
-          <Router onChange={this.handleRoute}>
+          <Router onChange={ this.handleRoute }>
             <Home path="/" data={data} thing="it" />
+            <Name path="/n/:name" data={data} />
             <Profile path="/profile/" user="me" />
             <Profile path="/profile/:user" />
           </Router>
