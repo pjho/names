@@ -4,7 +4,22 @@
 }
 
 .namelist li {
-  display: block;
-  float: left;
+  display: inline-block;
   margin: 10px;
+}
+
+a {
+  display: inline-block;
+  color :#6e6e6e;
+  text-decoration: none;
+  line-height: 20px;
+  padding: 20px;
+  border-radius:3px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  background-color: #f9f9f9;
+}
+
+svg {
+  margin-left: 10px;
+  vertical-align: middle;
 }

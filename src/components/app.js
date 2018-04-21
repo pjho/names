@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import { Router } from "preact-router";
+import _mapValues from 'lodash-es/mapValues'
 
 import Header from "./header";
 import Home from "../routes/home";
@@ -12,6 +13,10 @@ import Profile from "../routes/profile";
 if (module.hot) {
   require("preact/debug");
 }
+
+
+import { allYears } from "../utils/allyears";
+
 
 export default class App extends Component {
   state = {
@@ -31,7 +36,16 @@ export default class App extends Component {
     fetch("/assets/data/baby-names.json")
       .then(resp => resp.json())
       .then(json => {
-        this.setState({ data: json, loading: false });
+
+        const data = {
+          ...json,
+          female: _mapValues(json.female, (v) => ({ ...v, years: { ...allYears, ...v.years } })),
+          male: _mapValues(json.male, (v) => ({ ...v, years: { ...allYears, ...v.years } })),
+        }
+
+        window.data = data;
+
+        this.setState({ data, loading: false });
       });
   }
 

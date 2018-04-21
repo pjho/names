@@ -15,8 +15,9 @@ export default class Home extends Component {
   render({ data }, { query }) {
     return (
       <div class={ style.home }>
-        <input type='text' onInput={ this.handleChange } />
-        {/*<p>{query}</p>*/}
+        <div class={ style['search-container'] }>
+          <input type='search' onInput={ this.handleChange } placeholder='Search for names...' />
+        </div>
 
         { query && (
           <NameList query={ query } data={ data } />
