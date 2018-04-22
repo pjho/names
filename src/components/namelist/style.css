@@ -8,7 +8,7 @@
   margin: 10px;
 }
 
-a {
+.namelist a {
   display: inline-block;
   color :#6e6e6e;
   text-decoration: none;
@@ -19,7 +19,9 @@ a {
   background-color: #f9f9f9;
 }
 
-svg {
+.namelist canvas,
+.namelist svg {
   margin-left: 10px;
   vertical-align: middle;
+  border-bottom: 1px solid #EEE;
 }

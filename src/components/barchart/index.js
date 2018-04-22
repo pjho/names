@@ -1,35 +1,37 @@
 import { h, Component } from 'preact'
+import { CanvasBarChart } from './canvas-bar'
 
-
-
-
-export const BarChart = ({ data, height=20, barWidth=1, gutter=0, color='#E67E22' }) => {
-  const keys = Object.keys(data)
-  const vals = Object.values(data)
-  const chartWidth = keys.length * (barWidth + gutter);
-
-  const min = Math.min(...vals)
-  const max = Math.max(...vals)
-
-  const scale = (n) => {
-    return (height - 1) * (n - min) / (max-min) + 1
+export class BarChart extends Component {
+  constructor(props) {
+    super(props)
+    this.canvasRef = null
   }
 
-  return (
-    <svg width={ chartWidth } height={ height } >
-      { keys.map((year ,i) => {
-        const val = scale(data[year])
-        return (
-          <rect
-            fill={ color }
-            width={ barWidth }
-            y={ height - val }
-            x="0"
-            height={ val }
-            transform={ `translate(${ (barWidth + gutter) * i },0)` }
-          />
-        )
-      } )}
-    </svg>
-  )
+  componentDidMount(x) {
+    const { data, height=20, barWidth=1, gutter=0, color='#E67E22' } = this.props
+
+    Promise.resolve(0).then(() => {
+      new CanvasBarChart({
+        canvas:this.canvasRef,
+        data,
+        colors:[ color ],
+        height,
+        barWidth,
+        gutter,
+        gridScale:100,
+        seriesName:"",
+        padding:0,
+        gridColor:"#eeeeee",
+      })
+    })
+
+  }
+
+  render () {
+    return (
+      <canvas ref={ (el) => this.canvasRef = el } />
+    )
+  }
+
 }
+
