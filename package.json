@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.8",
+    "mobx": "^4.2.0",
+    "mobx-preact": "^2.0.0",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.7"

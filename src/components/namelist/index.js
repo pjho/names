@@ -9,9 +9,14 @@ const boyColor = '#34495E';
 const Name = ({ name, data, color }) => (
     <li>
       <Link href={`/n/${ name }`}>
-        { name }
-        <BarChart data={ data.years } color={ color } />
+        <div>
+          { name }
+          <BarChart data={ data.years } color={ color } />
+        </div>
       </Link>
+        <div class={style.actions}>
+          save
+        </div>
     </li>
   )
 
@@ -29,7 +34,14 @@ export class NameList extends Component {
           <div>
             <h4>{girlNames.length} Girls Names</h4>
             <ul>
-              { girlNames.map(name => <Name name={name} data={ data.female[name] } color={ girlColor } />) }
+              { girlNames.map(name => (
+                <Name
+                  key={ name }
+                  name={name}
+                  data={ data.female[name] }
+                  color={ girlColor }
+                />
+              ))}
             </ul>
           </div>
         )}
@@ -38,7 +50,14 @@ export class NameList extends Component {
           <div>
             <h4>{boyNames.length} Boys Names</h4>
             <ul>
-              { boyNames.map(name => <Name name={name} data={ data.male[name] } color={boyColor} />) }
+              { boyNames.map(name => (
+                <Name
+                  key={ name }
+                  name={name}
+                  data={ data.male[name] }
+                  color={ boyColor }
+                />
+              ))}
             </ul>
           </div>
         )}

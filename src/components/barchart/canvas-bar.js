@@ -36,7 +36,6 @@ export const CanvasBarChart = function({ data, canvas, colors, ...options }){
     this.canvasActualHeight = this.chartHeight - this.options.padding * 2;
 
 
-
     this.draw();
 }
 

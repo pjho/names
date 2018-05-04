@@ -16,7 +16,12 @@ export default class Home extends Component {
     return (
       <div class={ style.home }>
         <div class={ style['search-container'] }>
-          <input type='search' onInput={ this.handleChange } placeholder='Search for names...' />
+          <input
+            type='search'
+            onInput={ this.handleChange }
+            placeholder='Search for names...'
+            autofocus
+          />
         </div>
 
         { query && (

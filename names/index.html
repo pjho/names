@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
+  <title>Names</title>
+</head>
+
+<body>
+
+  <script>
+    const percent = (num, total) => (num/total*100).toFixed(2)
+
+    fetch("./baby-names.csv.json")
+      .then(resp => resp.json())
+      .then(json => {
+        window.data = json
+
+        // ~ 11ms
+        const popularIn = (year, gender) => (
+          _.sortBy(data.names[gender], (name) => (
+             -(data[gender][name].years[year]) || 0
+          )).slice(0,50)
+          .map(they => {
+            const count = data[gender][they].years[year];
+            const total = data.years[year].total;
+            return `${ they } (${ count }) (${ percent(count, total) }%)`;
+          }))
+        // console.time('popularIn')
+        // console.log(popularIn(1933, 'female'))
+        // console.timeEnd('popularIn')
+
+        // ~ 19ms
+        const allTime = (gender) => {
+          const total = _.sumBy(data.names[gender], (it) => data[gender][it].total)
+
+          return _.sortBy(data.names[gender], (name) => (
+             -(data[gender][name].total) || 0
+          )).slice(0,1000)
+          .map((they, i) => {
+            const count = data[gender][they].total
+            // const total = data.years[year].total;
+            return `${ they } (${ count }) (${ i+1 }) (${ percent(count, total) }%)`;
+          }).filter(it => it.startsWith('Josephine'))
+        }
+        // console.time('allTime')
+        // console.log(allTime('female'))
+        // console.log(allTime('male'))
+        // console.timeEnd('allTime')
+
+
+
+
+
+
+      });
+  </script>
+</body>
+
+</html>
+
+<!--
+All Time -> Popular
+Year -> Popular
+
+Name ->
+ -> Trending
+ -> Change over time
+ -> Popularity
+ -> Synonyms
+    -> would be cool to get meanings...
+
+
+Search
+Add to favorites
+
+
+
+-->
