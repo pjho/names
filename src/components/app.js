@@ -2,6 +2,8 @@ import { h, Component } from "preact";
 import { Router } from "preact-router";
 import _mapValues from 'lodash-es/mapValues'
 
+import { Provider } from "mobx-preact";
+
 import Header from "./header";
 import Home from "../routes/home";
 import Name from "../routes/name";
@@ -16,6 +18,10 @@ if (module.hot) {
 
 
 import { allYears } from "../utils/allyears";
+
+import { nameStore } from "../models/NamesModel";
+const stores = { nameStore }
+
 
 
 export default class App extends Component {
@@ -51,19 +57,21 @@ export default class App extends Component {
 
   render(props, { data, loading }) {
     return (
-      <div id="app">
-        <Header />
-        { loading ? (
-          <p>Loading</p>
-        ) : (
-          <Router onChange={ this.handleRoute }>
-            <Home path="/" data={data} thing="it" />
-            <Name path="/n/:name" data={data} />
-            <Profile path="/profile/" user="me" />
-            <Profile path="/profile/:user" />
-          </Router>
-        )}
-      </div>
+      <Provider { ...stores }>
+        <div id="app">
+          <Header />
+          { loading ? (
+            <p>Loading</p>
+          ) : (
+            <Router onChange={ this.handleRoute }>
+              <Home path="/" data={data} thing="it" />
+              <Name path="/n/:name" data={data} />
+              <Profile path="/profile/" user="me" />
+              <Profile path="/profile/:user" />
+            </Router>
+          )}
+        </div>
+      </Provider>
     );
   }
 }

@@ -2,19 +2,23 @@ import { h, Component } from 'preact'
 import { NameList } from '../../components/namelist'
 import style from './style'
 
+import { observer, inject } from "mobx-preact";
+
+
+@inject('nameStore')
+@observer
 export default class Home extends Component {
-  state = {
-    query: '',
-  }
 
   handleChange = (e) => {
     e.preventDefault()
-    this.setState({ query: e.target.value })
+    this.props.nameStore.query = e.target.value
   }
 
-  render({ data }, { query }) {
+  render({ data, nameStore }, { query }) {
+
     return (
       <div class={ style.home }>
+
         <div class={ style['search-container'] }>
           <input
             type='search'
@@ -24,8 +28,8 @@ export default class Home extends Component {
           />
         </div>
 
-        { query && (
-          <NameList query={ query } data={ data } />
+        { nameStore.query && (
+          <NameList query={ nameStore.query } data={ data } />
         )}
       </div>
     )
