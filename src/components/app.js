@@ -1,8 +1,10 @@
 import { h, Component } from "preact";
 import { Router } from "preact-router";
-import _mapValues from 'lodash-es/mapValues'
+import { observer } from "mobx-preact";
 
 import { Provider } from "mobx-preact";
+
+import { RootStore } from "../models/RootStore";
 
 import Header from "./header";
 import Home from "../routes/home";
@@ -16,20 +18,15 @@ if (module.hot) {
   require("preact/debug");
 }
 
+const rootStore = new RootStore()
+const stores = {
+  nameStore: rootStore.nameStore,
+  uiStore: rootStore.uiStore,
+  yearStore: rootStore.yearStore,
+}
 
-import { allYears } from "../utils/allyears";
-
-import { nameStore } from "../models/NamesModel";
-const stores = { nameStore }
-
-
-
+@observer
 export default class App extends Component {
-  state = {
-    loading: true,
-    data: {}
-  };
-
   /** Gets fired when the route changes.
    *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
    *	@param {string} event.url	The newly routed URL
@@ -38,37 +35,23 @@ export default class App extends Component {
     this.currentUrl = e.url;
   };
 
-  componentWillMount() {
-    fetch("/assets/data/baby-names.json")
-      .then(resp => resp.json())
-      .then(json => {
 
-        const data = {
-          ...json,
-          female: _mapValues(json.female, (v) => ({ ...v, years: { ...allYears, ...v.years } })),
-          male: _mapValues(json.male, (v) => ({ ...v, years: { ...allYears, ...v.years } })),
-        }
-
-        window.data = data;
-
-        this.setState({ data, loading: false });
-      });
-  }
-
-  render(props, { data, loading }) {
+  render() {
     return (
       <Provider { ...stores }>
         <div id="app">
           <Header />
-          { loading ? (
-            <p>Loading</p>
-          ) : (
+          { rootStore.uiStore.dataLoaded ? (
             <Router onChange={ this.handleRoute }>
-              <Home path="/" data={data} thing="it" />
-              <Name path="/n/:name" data={data} />
+              <Home path="/" />
+              <Name path="/n/:name" />
               <Profile path="/profile/" user="me" />
               <Profile path="/profile/:user" />
             </Router>
+          ) : (
+            <p style={{ marginTop: '80px' }}>
+              Loading
+            </p>
           )}
         </div>
       </Provider>

@@ -2,6 +2,7 @@ import { h, Component } from 'preact'
 import style from './style'
 
 import { BarChart } from '../../components/barchart'
+import { observer, inject } from "mobx-preact";
 
 
 class NameStats extends Component {
@@ -20,13 +21,14 @@ class NameStats extends Component {
   }
 }
 
-
+@inject('nameStore')
+@observer
 export default class Name extends Component {
 
-  render({ data, name }, { query }) {
+  render({ name, nameStore }, { query }) {
 
-    const boyData = data.male[name]
-    const girlData = data.female[name]
+    const boyData = nameStore.male[name]
+    const girlData = nameStore.female[name]
 
     return (
       <div class={ style.name }>

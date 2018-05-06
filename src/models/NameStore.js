@@ -1,22 +1,16 @@
 import { observable, computed, action, autorun } from "mobx";
 
-/*
-  Responsibilities
-  - Load data?
-  - Query and filter
-  - Favorites
-
-
-  - Year store??? this would be seperate but loaded at the same time
-*/
-
-
-
-class NamesModel {
-  @observable favourites = [];
+export class NameStore {
   @observable query = '';
+  @observable favourites = [];
+  female = {};
+  male = {};
+  names = {
+    female: [],
+    male: [],
+  };
 
-  constructor() {
+  constructor(rootStore) {
     const storedVals = localStorage.getItem('nz-names')
     if (storedVals) {
       const { favourites } = JSON.parse(storedVals)
@@ -31,13 +25,20 @@ class NamesModel {
         favourites: this.favourites,
       }))
     })
-
   }
 
-  // @computed
-  // get totalSpend() {
-  //   return this.expenses.reduce((total, ex) => (total + ex.amount), 0)
-  // }
+  startsWithQuery = (name) => name.toLowerCase().startsWith(this.query.toLowerCase())
+
+  @computed
+  get femaleList() {
+    return this.names.female.filter(this.startsWithQuery)
+  }
+
+  @computed
+  get maleList() {
+    return this.names.male.filter(this.startsWithQuery)
+  }
+
 
   @action
   favourite(name) {
@@ -45,6 +46,4 @@ class NamesModel {
   }
 }
 
-export const nameStore = new NamesModel()
-// window.nameStore = nameStore
 

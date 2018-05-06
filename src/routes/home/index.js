@@ -14,7 +14,7 @@ export default class Home extends Component {
     this.props.nameStore.query = e.target.value
   }
 
-  render({ data, nameStore }, { query }) {
+  render({ nameStore }, { query }) {
 
     return (
       <div class={ style.home }>
@@ -28,9 +28,7 @@ export default class Home extends Component {
           />
         </div>
 
-        { nameStore.query && (
-          <NameList query={ nameStore.query } data={ data } />
-        )}
+        <NameList />
       </div>
     )
   }
