@@ -41,9 +41,26 @@ export class NameStore {
 
 
   @action
-  favourite(name) {
+  fave(name) {
+    if (this.isFave(name)) {
+      return
+    }
     this.favourites.push(name);
   }
+
+  @action
+  unFave(name) {
+    const idx = this.favourites.findIndex(n => n === name)
+
+    if (idx > -1) {
+      this.favourites.splice(idx, 1)
+    }
+  }
+
+  isFave(name) {
+    return this.favourites.findIndex(n => n === name) > -1
+  }
+
 }
 
 

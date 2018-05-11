@@ -14,6 +14,10 @@ export default class Home extends Component {
     this.props.nameStore.query = e.target.value
   }
 
+  componentDidMount() {
+    this.inputRef.focus()
+  }
+
   render({ nameStore }, { query }) {
 
     return (
@@ -24,7 +28,7 @@ export default class Home extends Component {
             type='search'
             onInput={ this.handleChange }
             placeholder='Search for names...'
-            autofocus
+            ref={el => this.inputRef = el}
           />
         </div>
 

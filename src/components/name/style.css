@@ -1,0 +1,31 @@
+.listname {
+
+}
+
+.listname a {
+  cursor: pointer;
+}
+
+
+.listname .actions {
+  border-radius: 3px;
+  background: #fff;
+  padding: 8px 20px;
+}
+
+.listname .actions svg {
+  width: 30px;
+  height: 30px;
+  fill: pink;
+}
+
+
+.listname >  a {
+  display: inline-block;
+  color :#6e6e6e;
+  text-decoration: none;
+  line-height: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius:3px;
+}
