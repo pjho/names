@@ -21,7 +21,6 @@ export class NameList extends Component {
 
     return (
       <div class={ style.namelist }>
-      { nameStore.favourites.map(it => <span>{ it }</span>) }
 
         { girlList.length > 0 && (
           <div>

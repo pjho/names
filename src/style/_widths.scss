@@ -1,0 +1,85 @@
+
+// ---------------------------------------------------------------------------
+// Columns
+// If you need or prefer a column based you can use the following mixin
+// to generate the column, offset & push classes you need.
+// ---------------------------------------------------------------------------
+@mixin columns($size:'', $num_cols:12) {
+    $prefix: if($size == '', '', #{$size}-);
+
+    $columnName: 'c';
+    $marginLeftName: 'o';
+    $marginRightName: 'p';
+
+    // Generate column widths
+    @for $i from 1 through $num_cols {
+      .#{$prefix}#{$columnName}#{$i}  { width: $i / $num_cols * 100% }
+    }
+
+    // Generate offset & push rules ( margin left). 0 provides reset rule
+    @for $i from 0 through $num_cols - 1 {
+      .#{$prefix}#{$marginLeftName}#{$i} { margin-left: $i / $num_cols * 100%; }
+      .#{$prefix}#{$marginRightName}#{$i} { margin-right: $i / $num_cols * 100%; }
+    }
+ }
+
+
+// ---------------------------------------------------------------------------
+// Widths
+// If you need or prefer a semantic fractional naming convention for your grid
+// you can use the following mixin to generate the classes you need. Uncomment
+// as you need to only include the sizes you need.
+// ---------------------------------------------------------------------------
+@mixin widths($size:'') {
+    $widths: (
+        'one-twelfth'      : 8.333333333%,
+        // 'one-tenth'      : 10%,
+        // 'one-fifth'      : 20%,
+        'one-quarter'    : 25%,
+        // 'three-tenths'   : 30%,
+        'one-third'      : 33.333333333%,
+        // 'two-fifths'     : 40%,
+        'one-half'       : 50%,
+        // 'three-fifths'   : 60%,
+        'two-thirds'     : 66.666666666%,
+        // 'seven-tenths'   : 70%,
+        'three-quarters' : 75%,
+        // 'four-fifths'    : 80%,
+        // 'nine-tenths'    : 90%,
+        'full'           : 100%
+    );
+    $prefix: if($size == '', '', #{$size}-);
+    $marginLeftName: 'offset';
+    $marginRightName: 'push';
+
+    @each $name, $width in $widths {
+        .#{$prefix}#{$name} { width: #{$width} }
+        .#{$prefix}#{$marginLeftName}-#{$name} { margin-left: $width; }
+        .#{$prefix}#{$marginRightName}-#{$name} { margin-right: $width; }
+    }
+ }
+
+
+// base widths with no media query
+// @include widths()
+@include columns()
+
+@include narrow { // small down
+    // @include widths('narrow');
+    @include columns('sm');
+}
+
+@include medium {
+    // @include widths('md');
+    @include columns('md');
+}
+
+@include large {
+    // @include widths('lg');
+    @include columns('lg');
+}
+
+@include xlarge {
+    // @include widths('xl');
+    @include columns('xl');
+}

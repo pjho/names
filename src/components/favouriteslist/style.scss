@@ -1,0 +1,25 @@
+.favlist {
+  ul {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  li {
+    list-style: none;
+    padding: 8px 3px;
+    border-bottom: 1px solid #E0D1E4;
+    // border-top: 1px solid purple;
+    margin-left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  a {
+    display: inline-block;
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 0 10px;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

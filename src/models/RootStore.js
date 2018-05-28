@@ -6,7 +6,6 @@ import { YearStore } from './YearStore'
 
 import { allYears } from "../utils/allyears";
 
-
 export class RootStore {
   constructor() {
     this.uiStore = new UiStore(this)
