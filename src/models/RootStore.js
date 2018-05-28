@@ -15,7 +15,7 @@ export class RootStore {
   }
 
   loadCoreData() {
-    fetch("/assets/data/baby-names.json")
+    fetch(`${ window.location.pathname || '/' }assets/data/baby-names.json`)
       .then(resp => resp.json())
       .then((json) => {
         const { female, male, names, totals } = json
