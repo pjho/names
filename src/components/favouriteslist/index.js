@@ -25,7 +25,7 @@ export class FavouritesList extends Component {
       <div class={ style.favlist }>
         <h4>My Favorites</h4>
         <ul>
-          { nameStore.favourites.map(name => <NameListName name={name} nameStore={nameStore} />) }
+          { nameStore.favourites.sort().map(name => <NameListName name={name} nameStore={nameStore} />) }
         </ul>
       </div>
     )

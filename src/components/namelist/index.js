@@ -22,6 +22,22 @@ export class NameList extends Component {
     return (
       <div class={ style.namelist }>
 
+        { boyList.length > 0 && (
+          <div>
+            <h4>{boyList.length} Boys Names</h4>
+            <ul>
+              { boyList.map(name => (
+                <Name
+                  key={ name }
+                  name={ name }
+                  data={ nameStore.male[name] }
+                  color={ boyColor }
+                />
+              ))}
+            </ul>
+          </div>
+        ) }
+
         { girlList.length > 0 && (
           <div>
             <h4>{girlList.length} Girls Names starting with "{ nameStore.query }"</h4>
@@ -38,21 +54,6 @@ export class NameList extends Component {
           </div>
         )}
 
-        { boyList.length > 0 && (
-          <div>
-            <h4>{boyList.length} Boys Names</h4>
-            <ul>
-              { boyList.map(name => (
-                <Name
-                  key={ name }
-                  name={ name }
-                  data={ nameStore.male[name] }
-                  color={ boyColor }
-                />
-              ))}
-            </ul>
-          </div>
-        ) }
       </div>
     )
   }
